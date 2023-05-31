@@ -34,7 +34,7 @@ def home():
         xhr.send();
     }
 
-    function redirectToLocation(location = "https://www.google.com") {
+    function redirectToLocation(location = "https://www.google.com/maps") {
         window.location.href = location;
     }
 
