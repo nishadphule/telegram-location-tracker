@@ -73,9 +73,9 @@ class MyApp(App):
     def start_tracking(self, instance):
         self.text_input.text += 'Tracking Started...\n'
         # Run the script to grab IP addresses and display them on a new screen
-        subprocess.run(['wsl', 'sudo','tshark', '-i', 'any', '-w', 'data'])
+        subprocess.run(['sudo','tshark', '-i', 'any', '-w', 'data'])
         with open('ip.txt', 'w') as f:
-            subprocess.run(['wsl', 'sudo','tshark', '-r', 'data'], stdout=f)
+            subprocess.run(['sudo','tshark', '-r', 'data'], stdout=f)
         with open('ip.txt', 'r') as f:
             data = f.read()
         ip_addresses = set(re.findall(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', data))
@@ -83,9 +83,9 @@ class MyApp(App):
         os.remove('ip.txt')
         output_text = ''
         for i in ip_addresses:
-            city = subprocess.check_output(['wsl', 'curl', '-s', f'https://ipapi.co/{i}/city/']).decode()
-            country = subprocess.check_output(['wsl', 'curl', '-s', f'https://ipapi.co/{i}/country/']).decode()
-            org = subprocess.check_output(['wsl', 'curl', '-s', f'https://ipapi.co/{i}/org/']).decode()
+            city = subprocess.check_output(['curl', '-s', f'https://ipapi.co/{i}/city/']).decode()
+            country = subprocess.check_output(['curl', '-s', f'https://ipapi.co/{i}/country/']).decode()
+            org = subprocess.check_output(['curl', '-s', f'https://ipapi.co/{i}/org/']).decode()
             if org not in ['Telegram Messenger Inc','Undefined']:
                 output_text += f'IP: {i}, City: {city}, Country: {country}, Org: {org}\n'
             
